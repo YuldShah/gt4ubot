@@ -41,7 +41,7 @@ async def cmd_start(message: types.Message):
         f"You can also use me in inline mode by typing @lgtfy_bot in any chat.",
         reply_markup=types.InlineKeyboardMarkup(
             inline_keyboard=[
-                [types.InlineKeyboardButton(text="🔍 Inline Mode", switch_inline_query_chosen_chat=types.SwitchInlineQueryChosenChat())]
+                [types.InlineKeyboardButton(text="🔍 Inline Mode", switch_inline_query_chosen_chat=types.SwitchInlineQueryChosenChat(allow_user_chats=True, allow_group_chats=True, allow_channel_chats=True))]
             ]
         )
     )
@@ -94,7 +94,7 @@ async def inline_query_handler(query: types.InlineQuery):
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="🔍 Google That!", url=search_url)],
         [InlineKeyboardButton(text="🔗 Copy Link", copy_text=types.CopyTextButton(text=search_url))],
-        [InlineKeyboardButton(text="🔍 Inline Mode", switch_inline_query_chosen_chat=types.SwitchInlineQueryChosenChat())]
+        [InlineKeyboardButton(text="🔍 Inline Mode", switch_inline_query_chosen_chat=types.SwitchInlineQueryChosenChat(allow_user_chats=True, allow_group_chats=True, allow_channel_chats=True))]
     ])
     
     # Create the inline result
