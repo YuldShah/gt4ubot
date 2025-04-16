@@ -29,13 +29,20 @@ async def cmd_start(message: types.Message):
     """Handle /start command"""
     logger.info(f"User {message.from_user.id} started the bot")
     await message.answer(
-        f"Hi {message.from_user.full_name}! 👋\n\n"
-        f"Send me any text and I'll convert it to a Google search link.\n\n"
-        f"You can also use me in inline mode by typing @lgtfy_bot in any chat.",
+        f"Hi {message.from_user.full_name}! 👋"
         reply_markup=types.ReplyKeyboardMarkup(
             keyboard=[[types.KeyboardButton(text="ℹ️ Get info")]],
             resize_keyboard=True,
             input_field_placeholder="Enter your query..."
+        )
+    )
+    await message.answer(
+        f"Send me any text and I'll convert it to a Google search link.\n\n"
+        f"You can also use me in inline mode by typing @lgtfy_bot in any chat.",
+        reply_markup=types.InlineKeyboardMarkup(
+            inline_keyboard=[
+                [types.InlineKeyboardButton(text="🔍 Inline Mode", switch_inline_query_chosen_chat=types.SwitchInlineQueryChosenChat())]
+            ]
         )
     )
 
@@ -85,7 +92,9 @@ async def inline_query_handler(query: types.InlineQuery):
     
     # Create inline keyboard with button to copy link
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="🔍 Google That!", url=search_url)]
+        [InlineKeyboardButton(text="🔍 Google That!", url=search_url)],
+        [InlineKeyboardButton(text="🔗 Copy Link", copy_text=types.CopyTextButton(text=search_url))],
+        [InlineKeyboardButton(text="🔍 Inline Mode", switch_inline_query_chosen_chat=types.SwitchInlineQueryChosenChat())]
     ])
     
     # Create the inline result
