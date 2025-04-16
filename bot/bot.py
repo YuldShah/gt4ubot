@@ -1,5 +1,5 @@
 import os
-from aiogram import Bot, Dispatcher, types, F
+from aiogram import Bot, Dispatcher, types, F, html
 from aiogram.filters.command import Command
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from dotenv import load_dotenv
@@ -31,7 +31,7 @@ async def cmd_start(message: types.Message):
     await message.answer(
         f"Hi {message.from_user.full_name}! 👋\n\n"
         f"Send me any text and I'll convert it to a Google search link.\n\n"
-        f"You can also use me in inline mode by typing @yourbotname in any chat.",
+        f"You can also use me in inline mode by typing @lgtfy_bot in any chat.",
         reply_markup=types.ReplyKeyboardMarkup(
             keyboard=[[types.KeyboardButton(text="ℹ️ Get info")]],
             resize_keyboard=True,
@@ -50,11 +50,11 @@ async def handle_text(message: types.Message):
     
     # Create inline keyboard with button to copy the link
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="Copy Link", url=search_url)]
+        [InlineKeyboardButton(text="🔗 Copy Link", copy_text=search_url)]
     ])
     
     await message.answer(
-        f"Here's your Google search link for:\n<b>{text}</b>",
+        f"Here's your Google search link (tap to copy):\n\n{html.code(search_url)}",
         reply_markup=keyboard,
         parse_mode="HTML"
     )
@@ -72,7 +72,7 @@ async def inline_query_handler(query: types.InlineQuery):
                     id="empty",
                     title="Enter text to convert to a Google search link",
                     input_message_content=types.InputTextMessageContent(
-                        message_text="Please enter a search term after @yourbotname"
+                        message_text="Please enter a search term after @lgtfy_bot"
                     )
                 )
             ],
@@ -85,16 +85,16 @@ async def inline_query_handler(query: types.InlineQuery):
     
     # Create inline keyboard with button to copy link
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="Open Search", url=search_url)]
+        [InlineKeyboardButton(text="🔍 Google That!", copy_text=search_url)]
     ])
     
     # Create the inline result
     result = types.InlineQueryResultArticle(
         id=str(hash(text)),
-        title=f"Search Google for: {text}",
+        title=f"Send Google Search link for: {text}",
         description=search_url,
         input_message_content=types.InputTextMessageContent(
-            message_text=f"🔍 Google search for: <b>{text}</b>",
+            message_text=f"Here is your Google Search link for:\n<b>{text}</b>",
             parse_mode="HTML"
         ),
         reply_markup=keyboard
