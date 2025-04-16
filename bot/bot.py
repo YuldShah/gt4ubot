@@ -29,7 +29,7 @@ async def cmd_start(message: types.Message):
     """Handle /start command"""
     logger.info(f"User {message.from_user.id} started the bot")
     await message.answer(
-        f"Hi {message.from_user.full_name}! 👋"
+        f"Hi {message.from_user.full_name}! 👋",
         reply_markup=types.ReplyKeyboardMarkup(
             keyboard=[[types.KeyboardButton(text="ℹ️ Get info")]],
             resize_keyboard=True,
