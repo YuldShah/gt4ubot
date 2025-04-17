@@ -102,6 +102,7 @@ async def inline_query_handler(query: types.InlineQuery):
         id=str(hash(text)),
         title=f"Send Google Search link for: {text}",
         description=search_url,
+        thumb_url="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-1024.png",
         input_message_content=types.InputTextMessageContent(
             message_text=f"Here is your Google Search link for:\n<b>{text}</b>",
             parse_mode="HTML"
