@@ -57,7 +57,8 @@ async def handle_text(message: types.Message):
     
     # Create inline keyboard with button to copy the link
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="🔗 Copy Link", copy_text=types.CopyTextButton(text=search_url))]
+        [InlineKeyboardButton(text="🔗 Copy Link", copy_text=types.CopyTextButton(text=search_url))],
+        [InlineKeyboardButton(text="🔍 Inline Mode", switch_inline_query_chosen_chat=types.SwitchInlineQueryChosenChat(allow_user_chats=True, allow_group_chats=True, allow_channel_chats=True))]
     ])
     
     await message.answer(
@@ -93,9 +94,7 @@ async def inline_query_handler(query: types.InlineQuery):
     
     # Create inline keyboard with button to copy link
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="🔍 Google That!", url=search_url)],
-        [InlineKeyboardButton(text="🔗 Copy Link", copy_text=types.CopyTextButton(text=search_url))],
-        [InlineKeyboardButton(text="🔍 Inline Mode", switch_inline_query_chosen_chat=types.SwitchInlineQueryChosenChat(allow_user_chats=True, allow_group_chats=True, allow_channel_chats=True))]
+        [InlineKeyboardButton(text="🔍 Google That!", url=search_url)]
     ])
     
     # Create the inline result
