@@ -38,7 +38,7 @@ async def cmd_start(message: types.Message):
     )
     await message.answer(
         f"Send me any text and I'll convert it to a Google search link.\n\n"
-        f"You can also use me in inline mode by typing @lgtfy_bot in any chat.",
+        f"You can also use me in inline mode by typing @gt4ubot in any chat.",
         reply_markup=types.InlineKeyboardMarkup(
             inline_keyboard=[
                 [types.InlineKeyboardButton(text="🔍 Inline Mode", switch_inline_query_chosen_chat=types.SwitchInlineQueryChosenChat(allow_user_chats=True, allow_group_chats=True, allow_channel_chats=True))]
@@ -77,9 +77,10 @@ async def inline_query_handler(query: types.InlineQuery):
             results=[
                 types.InlineQueryResultArticle(
                     id="empty",
+                    thumb_url="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-1024.png",
                     title="Enter text to convert to a Google search link",
                     input_message_content=types.InputTextMessageContent(
-                        message_text="Please enter a search term after @lgtfy_bot"
+                        message_text="Please enter a search term after @gt4ubot"
                     )
                 )
             ],
